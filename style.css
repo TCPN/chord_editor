@@ -1,0 +1,7 @@
+#abc-text {
+	display: block;
+	min-width: 400px;
+	min-height: 100px;
+	width: max-content;
+	height: max-content; 
+}
