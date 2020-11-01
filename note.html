@@ -16,7 +16,14 @@ Q:1/4=100
 CDEG-G4|GFED-D4|DCDC-C4|CCCC-C4|]
 </textarea>
 <button id="abc-render" onclick="render_my_abc()">Render ABC</button>
-<br/>
+<div>
+<label>小節分割</label>
+<select id="measure-divide">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="4">4</option>
+</select>
+</div>
 
 <label>Rendered:</label>
 <div id="paper"></div>
