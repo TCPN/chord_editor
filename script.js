@@ -17,7 +17,7 @@ function accum(array, init){
 var abc_textarea_elem_id = 'abc-text';
 var render_paper_elem_id = 'paper';
 var editor_paper_elem_id = 'editor';
-
+var setting_measure_divide = 'measure-divide';
 
 var abc_render_params = {
 	responsive: 'resize',
@@ -54,14 +54,56 @@ function create_rect(params={}){
 function add_to_paper(elem){ get('#'+editor_paper_elem_id).firstChild.append(elem);}
 
 function editor_onchange(event){
-	// var paper = get('#'+editor_paper_elem_id);
-	// var paper_svg = paper.firstChild;
-	// var rect = create_rect();
-	// paper_svg.append(rect);
+	replot_chord_spans();
+}
+
+function editor_onclick(event){
+	if(event.target.tagName.toLowerCase() == 'rect' && event.target.classList.contains('chord-span')){
+		chord_span_onclick.call(this, event);
+		event.cancelBubble = true;
+		event.preventDefault();
+	}
+	else{
+		chord_span_selection_clear();
+	}
+}
+function chord_span_onclick(event){
+	if(!event.ctrlKey){
+		chord_span_selection_clear();
+	}
+	if(event.target.dataset.selected == 'true')
+		chord_span_selection_remove(event.target);
+	else
+		chord_span_selection_add(event.target);
+}
+/// chord spans selection control
+function chord_span_selection_add(elem){
+	elem.dataset.selected = 'true';
+}
+function chord_span_selection_remove(elem){
+	elem.dataset.selected = 'false';
+}
+function chord_span_selection_clear(){
+	for(let elem of getAll('rect.chord-span')){
+		elem.dataset.selected = false;
+	}
 }
 
 function render_my_abc(){
 	window.rendered = ABCJS.renderAbc(render_paper_elem_id, get('#'+abc_textarea_elem_id).value, abc_render_params);
+}
+
+function replot_chord_spans(){
+	clear_chord_spans();
+	plot_chord_spans(get_measure_divide());
+}
+
+function get_measure_divide(){
+	return Number(get('#'+setting_measure_divide).value);
+}
+
+function clear_chord_spans(){
+	getAll('rect.chord-span').forEach(e=>e.remove());
 }
 
 function plot_chord_spans(per_measure=1){
@@ -88,7 +130,13 @@ function plot_chord_spans(per_measure=1){
 					span_box.left = measure.left;
 					delete span_box.width;
 				}
-				add_to_paper(create_rect(toBBox(span_box)));
+				var rect_params = toBBox(span_box);;
+				var rect = create_rect(rect_params);
+				rect.classList.add('chord-span');
+				rect.dataset.line = l;
+				rect.dataset.measure = m;
+				rect.dataset.span = i * span_beats;
+				add_to_paper(rect);
 			}
 		}
 	}
@@ -237,5 +285,7 @@ function get_note_visual_span(line, measure, note_i){
 editor_mutation_observer = new MutationObserver(editor_onchange);
 window.addEventListener('load', function(event){
 	editor_mutation_observer.observe(get('#'+editor_paper_elem_id), {childList: true});
+	get('#'+editor_paper_elem_id).addEventListener('click', editor_onclick);
+	get('#'+setting_measure_divide).addEventListener('change', replot_chord_spans);
 	window.editor = new ABCJS.Editor(abc_textarea_elem_id, editor_params);
 })

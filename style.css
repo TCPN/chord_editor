@@ -5,3 +5,12 @@
 	width: max-content;
 	height: max-content; 
 }
+
+rect.chord-span {
+	fill: #0000;
+	stroke: #07f7;
+	stroke-width: 3;
+}
+rect.chord-span[data-selected="true"] {
+	fill: #07f7;
+}
