@@ -19,6 +19,11 @@ var render_paper_elem_id = 'paper';
 var editor_paper_elem_id = 'editor';
 var setting_measure_divide = 'measure-divide';
 
+//TODO
+var measure_beats = 4;
+var beat_unit = 1/4;
+var score_unit = 1/8;
+
 var abc_render_params = {
 	responsive: 'resize',
 	add_classes: true,
@@ -30,6 +35,8 @@ var editor_params = {
 var chord_editor_settings = {
 	measure_split: 1,
 };
+
+var selected_spans = new Set();
 
 
 function create_rect(params={}){
@@ -78,16 +85,30 @@ function chord_span_onclick(event){
 }
 /// chord spans selection control
 function chord_span_selection_add(elem){
+	selected_spans.add(elem.dataset.pos);
 	elem.dataset.selected = 'true';
 }
 function chord_span_selection_remove(elem){
+	selected_spans.delete(elem.dataset.pos);
 	elem.dataset.selected = 'false';
 }
 function chord_span_selection_clear(){
+	selected_spans.clear();
 	for(let elem of getAll('rect.chord-span')){
 		elem.dataset.selected = false;
 	}
 }
+function chord_span_get_selection(){
+	return Array.from(selected_spans).map(pos=>({
+		measure: Number(pos.split(',')[0]),
+		beat: Number(pos.split(',')[1]) * (beat_unit / score_unit),
+	}));
+	// return getAll('rect.chord-span[data-selected="true"]').map(e=>({
+	// 	measure: e.dataset.measure,
+	// 	beat: e.dataset.span * (beat_unit / score_unit),
+	// }));
+}
+
 
 function render_my_abc(){
 	window.rendered = ABCJS.renderAbc(render_paper_elem_id, get('#'+abc_textarea_elem_id).value, abc_render_params);
@@ -109,6 +130,7 @@ function clear_chord_spans(){
 function plot_chord_spans(per_measure=1){
 	if(!window.editor) return;
 
+	var measure_counts = 0;
 	for(var l = 0; ; l ++){
 		if(!get(`.abcjs-l${l}`))
 			break;
@@ -116,7 +138,6 @@ function plot_chord_spans(per_measure=1){
 		for(var m = 0; ; m ++){
 			if(!get(`.abcjs-l${l}.abcjs-m${m}`))
 				break;
-			let measure_beats = 4; // TODO
 			let span_beats = Math.round(measure_beats / per_measure);
 			let beat_positions = get_beat_position(l,m).map(toBBox);
 			let span_positions = range(per_measure).map(i=>{
@@ -134,11 +155,14 @@ function plot_chord_spans(per_measure=1){
 				var rect = create_rect(rect_params);
 				rect.classList.add('chord-span');
 				rect.dataset.line = l;
-				rect.dataset.measure = m;
+				rect.dataset.measure = measure_counts + m;
 				rect.dataset.span = i * span_beats;
+				rect.dataset.pos = rect.dataset.measure + ',' + rect.dataset.span;
+				rect.dataset.selected = selected_spans.has(rect.dataset.pos);
 				add_to_paper(rect);
 			}
 		}
+		measure_counts += m;
 	}
 }
 

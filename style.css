@@ -1,9 +1,9 @@
 #abc-text {
 	display: block;
-	min-width: 400px;
-	min-height: 100px;
+	min-width: 700px;
+	min-height: 600px;
 	width: max-content;
-	height: max-content; 
+	height: max-content;
 }
 
 rect.chord-span {
@@ -14,3 +14,28 @@ rect.chord-span {
 rect.chord-span[data-selected="true"] {
 	fill: #07f7;
 }
+
+/* Chord Input Styles */
+#chord-composer {
+    position: sticky;
+    bottom: 0.5em;
+    background: #fff;
+    box-shadow: 0 0.5em #fff;
+}
+#chord-composer > * {margin: 0.5em 0;}
+
+#chord-mod {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}
+.chord-keyboard {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+.white.key {grid-row: span 2;}
+.root-minor > *::after {content:  "m";}
+#chord-bass > *::before {content: "/";}

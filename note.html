@@ -2,6 +2,8 @@
 <html>
 <head>
 	<script type="text/javascript" charset="UTF-8" src="abcjs_basic_5.10.3-min.js" defer></script>
+	<script type="text/javascript" charset="UTF-8" src="js_utils.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="abc_script.js" defer></script>
 	<script type="text/javascript" charset="UTF-8" src="script.js" defer></script>
 	<link type="text/css" rel="stylesheet" href="style.css"/>
 </head>
@@ -15,7 +17,6 @@ K:C
 Q:1/4=100
 CDEG-G4|GFED-D4|DCDC-C4|CCCC-C4|]
 </textarea>
-<button id="abc-render" onclick="render_my_abc()">Render ABC</button>
 <div>
 <label>小節分割</label>
 <select id="measure-divide">
@@ -25,12 +26,45 @@ CDEG-G4|GFED-D4|DCDC-C4|CCCC-C4|]
 </select>
 </div>
 
-<label>Rendered:</label>
-<div id="paper"></div>
-<br/>
-
 <label>Editor:</label>
 <div id="editor"></div>
+
+
+<div id="chord-composer">
+	<button onclick="chord_editor.delChord(chord_span_get_selection())">Delete</button>
+	<div class="chord-keyboard root-major"
+		onclick="chord_editor.setChord(event.target.innerText, 'set', chord_span_get_selection())"></div>
+	<div class="chord-keyboard root-minor"
+		onclick="chord_editor.setChord(event.target.innerText + 'm', 'set', chord_span_get_selection())"></div>
+	<hr>
+	<div id="chord-mod" onclick="chord_editor.setChord(event.target.innerText, 'append', chord_span_get_selection())"></div>
+	<div class="chord-keyboard chord-bass"
+		onclick="chord_editor.setChord('/' + event.target.innerText, 'append', chord_span_get_selection())">
+	</div>
+	<script>
+	var tone = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
+	function addKeyButtons(elem) {
+	  var buttons = tone.map(t=>{
+		var b = document.createElement('button');
+		b.innerHTML = t;
+		b.className = t.length == 1 ? 'white key' : 'black key';
+		return b;
+	  });
+	  elem.append(...buttons);
+	}
+	addKeyButtons(document.querySelector('.root-major'));
+	addKeyButtons(document.querySelector('.root-minor'));
+	addKeyButtons(document.querySelector('.chord-bass'));
+	////////
+	var chord_mod = ['m', 'maj', 'dim', '-', 'aug', '+', 'sus', 'sus4', '(b5)', '(b9)', '2', '6', '7', '9', '11', '13',]
+	var buttons = chord_mod.map(s=>{
+		var b = document.createElement('button');
+		b.innerHTML = s;
+		return b;
+	});
+	document.querySelector('#chord-mod').append(...buttons);
+	</script>
+</div>
 
 <script type="text/javascript" charset="UTF-8" defer>
 document.querySelector('#abc-text').value = `X: 906
