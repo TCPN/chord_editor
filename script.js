@@ -140,28 +140,34 @@ function plot_chord_spans(per_measure=1){
 		for(var m = 0; ; m ++){
 			if(!get(`.abcjs-l${l}.abcjs-m${m}`))
 				break;
-			let span_beats = Math.round(measure_beats / per_measure);
-			let beat_positions = get_beat_position(l,m).map(toBBox);
-			let span_positions = range(per_measure).map(i=>{
-				var start = i * span_beats;
-				return group_boxes(beat_positions.slice(start, start + span_beats));
-			});
-			for(let i in span_positions){
-				var span_box = span_positions[i];
-				if(i == 0){
-					var measure = get_measure_position(l,m);
-					span_box.left = measure.left;
-					delete span_box.width;
+			try{
+
+				let span_beats = Math.round(measure_beats / per_measure);
+				let beat_positions = get_beat_position(l,m).map(toBBox);
+				let span_positions = range(per_measure).map(i=>{
+					var start = i * span_beats;
+					return group_boxes(beat_positions.slice(start, start + span_beats));
+				});
+				for(let i in span_positions){
+					var span_box = span_positions[i];
+					if(i == 0){
+						var measure = get_measure_position(l,m);
+						span_box.left = measure.left;
+						delete span_box.width;
+					}
+					var rect_params = toBBox(span_box);;
+					var rect = create_rect(rect_params);
+					rect.classList.add('chord-span');
+					rect.dataset.line = l;
+					rect.dataset.measure = measure_counts + m;
+					rect.dataset.span = i * span_beats;
+					rect.dataset.pos = rect.dataset.measure + ',' + rect.dataset.span;
+					rect.dataset.selected = selected_spans.has(rect.dataset.pos);
+					add_to_paper(rect);
 				}
-				var rect_params = toBBox(span_box);;
-				var rect = create_rect(rect_params);
-				rect.classList.add('chord-span');
-				rect.dataset.line = l;
-				rect.dataset.measure = measure_counts + m;
-				rect.dataset.span = i * span_beats;
-				rect.dataset.pos = rect.dataset.measure + ',' + rect.dataset.span;
-				rect.dataset.selected = selected_spans.has(rect.dataset.pos);
-				add_to_paper(rect);
+			}
+			catch(e){
+				console.error(e);
 			}
 		}
 		measure_counts += m;
