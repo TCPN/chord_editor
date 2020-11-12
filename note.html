@@ -18,12 +18,15 @@ Q:1/4=100
 CDEG-G4|GFED-D4|DCDC-C4|CCCC-C4|]
 </textarea>
 <div>
-<label>小節分割</label>
-<select id="measure-divide">
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="4">4</option>
-</select>
+	<label>小節分割</label>
+	<form id="measure-divide">
+		<label><input type="radio" name="measure-divide" value="1" checked/>1</label>
+		<label><input type="radio" name="measure-divide" value="2"/>2</label>
+		<label><input type="radio" name="measure-divide" value="3"/>3</label>
+		<label><input type="radio" name="measure-divide" value="4"/>4</label>
+		<label><input type="radio" name="measure-divide" value="6"/>6</label>
+		<label><input type="radio" name="measure-divide" value="8"/>8</label>
+	</form>
 </div>
 
 <label>Editor:</label>

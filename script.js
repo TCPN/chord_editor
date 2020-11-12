@@ -120,7 +120,7 @@ function replot_chord_spans(){
 }
 
 function get_measure_divide(){
-	return Number(get('#'+setting_measure_divide).value);
+	return Number(Array.from(get('#'+setting_measure_divide).elements).find(e=>e.checked).value);
 }
 
 function clear_chord_spans(){
