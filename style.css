@@ -20,6 +20,20 @@ rect.chord-span[data-selected="true"] {
 	fill: #07f7;
 }
 
+/* Setting Styles */
+#measure-divide[data-beat-num="2"] [value="3"],
+#measure-divide[data-beat-num="2"] [value="6"],
+#measure-divide[data-beat-num="4"] [value="3"],
+#measure-divide[data-beat-num="4"] [value="6"],
+#measure-divide[data-beat-num="3"] [value="2"],
+#measure-divide[data-beat-num="3"] [value="4"],
+#measure-divide[data-beat-num="3"] [value="8"],
+#measure-divide[data-beat-num="6"] [value="4"],
+#measure-divide[data-beat-num="6"] [value="8"]
+{
+	display: none;
+}
+
 /* Chord Input Styles */
 .chord-composer-container {
     position: sticky;
