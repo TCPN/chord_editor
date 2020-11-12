@@ -21,6 +21,24 @@ rect.chord-span[data-selected="true"] {
 }
 
 /* Setting Styles */
+#measure-divide {
+	display: inline-grid;
+	grid-auto-flow: column;
+	column-gap: 1px;
+	width: 400px;
+	text-align: center;
+}
+#measure-divide input {
+	display: none;
+}
+#measure-divide input + label {
+	border: 1px solid #07f;
+	border-radius: 3px;
+}
+#measure-divide input:checked + label {
+	background: #07f;
+	color: #fff;
+}
 #measure-divide[data-beat-num="2"] [value="3"],
 #measure-divide[data-beat-num="2"] [value="6"],
 #measure-divide[data-beat-num="4"] [value="3"],
