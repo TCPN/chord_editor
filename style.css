@@ -47,4 +47,4 @@ rect.chord-span[data-selected="true"] {
 
 .white.key {grid-row: span 2;}
 .root-minor > *::after {content:  "m";}
-#chord-bass > *::before {content: "/";}
+.chord-bass > *::before {content: "/";}
