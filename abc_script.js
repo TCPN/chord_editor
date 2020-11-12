@@ -478,7 +478,7 @@ class ChordVoiceProxy{
       this._parts.chord = str.split(/V:\s*chord.*\n/)[1].split(/V:.*\n/)[0];
     }
     else{
-      this._parts.command = str.match(/^(([TXMQKLSA]:|%%).*\n)+/)[0];
+      this._parts.command = (str.match(/^(([TXMQKLSA]:|%%).*\n)+/) || [''])[0];
       this._parts.melody = str.replace(this._parts.command, '');
       this._parts.chord = getChordVoice(this._parts.melody);
     }
