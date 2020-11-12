@@ -33,6 +33,7 @@ var editor_params = {
 	paper_id: editor_paper_elem_id,
 	abcjsParams: abc_render_params,
 	indicate_changed: true,
+	onchange: enable_save_btn_if_dirty,
 };
 var chord_editor_settings = {
 	measure_split: 1,
@@ -349,14 +350,12 @@ function display_song_data(song_data){
 	editor.setNotDirty();
 	editor.paramChanged();
 	setup_chord_editor('#abc-text');
+	enable_save_btn_if_dirty();
 }
-function search_song_oninput(){
-	filter_song_list(this.value);
-}
-function song_list_onclick(event){
-	if(event.target.value)
-		get('#search-song').value = event.target.value;
-	this.blur();
+function enable_save_btn_if_dirty(){
+	var is_not_dirty = !editor.isDirty();
+	var save_btn = get('#save-song');
+	save_btn.disabled = is_not_dirty;
 }
 async function load_song_btn_onclick(){
 	var load_btn = get('#load-song');
@@ -374,6 +373,14 @@ async function load_song_btn_onclick(){
 		load_btn.dataset.status = 'ready';
 		load_btn.disabled = false;
 	}
+}
+function search_song_oninput(){
+	filter_song_list(this.value);
+}
+function song_list_onclick(event){
+	if(event.target.value)
+		get('#search-song').value = event.target.value;
+	this.blur();
 }
 
 ////////////////////
