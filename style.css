@@ -78,19 +78,36 @@ rect.chord-span[data-selected="true"] {
 	display: none;
 }
 
+/* Editor Styles */
+#editor {
+	border: 1px solid #333;
+}
+
 /* Chord Input Styles */
 .chord-composer-container {
     position: sticky;
-    bottom: 0.5em;
+    bottom: 0;
     background: #fff;
-    box-shadow: 0 0.5em #fff, 0 0 0.5em -1px #ccc;
     border-radius: 0.5em 0.5em 0 0;
+	border: 1px solid #999;
+	border-bottom: none;
+	box-shadow: 0 0 0.2em #ccc;
+	padding: 0.5em;
+	margin: 1em;
+	margin-bottom: 0;
 }
 #chord-composer {
 	max-width: fit-content;
 	margin: auto;
 }
 #chord-composer > * {margin: 0.5em 0;}
+#chord-composer button {
+	border-radius: 0.2em;
+	border: 1px solid #666;
+}
+#chord-composer button {background-color: #eee;}
+#chord-composer button:hover {background-color: #ddd;}
+#chord-composer button:active {filter: brightness(1.1);}
 
 #chord-mod {
     display: grid;
