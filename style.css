@@ -64,6 +64,8 @@ rect.chord-span[data-selected="true"] {
     color: #fff;
 }
 
+/* Load Button and Save Button Style */
+
 /* Textarea Styles */
 #open-textarea ~ label {
 	display: block;
