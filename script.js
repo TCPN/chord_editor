@@ -13,6 +13,7 @@ function accum(array, init){
 	return ret;
 }
 
+var song_db_address = 'https://script.google.com/macros/s/AKfycbz9hK1JFPf7YrKrK-tdRc4grD2bTFdmKWmTt47ZhmKl4f3mB8U/exec';
 
 var abc_textarea_elem_id = 'abc-text';
 var render_paper_elem_id = 'paper';
@@ -31,6 +32,7 @@ var abc_render_params = {
 var editor_params = {
 	paper_id: editor_paper_elem_id,
 	abcjsParams: abc_render_params,
+	indicate_changed: true,
 };
 var chord_editor_settings = {
 	measure_split: 1,
@@ -306,10 +308,47 @@ function get_note_visual_span(line, measure, note_i){
 
 //////////////
 
+async function load_song_list(){
+	var response = await fetch(song_db_address);
+	return response.json();
+}
+async function append_song_list(song_list){
+	song_list = song_list || await load_song_list();
+	var song_list_elem = get('#song-list');
+	song_list_elem.innerHTML = '';
+	for(let song of song_list){
+		var option = document.createElement('option');
+		option.value = song.id;
+		option.innerText = song.id + '. ' + song.name;
+		song_list_elem.append(option);
+	}
+}
+function filter_song_list(search_str){
+	var song_list_elem = get('#song-list');
+	for(let option of song_list_elem.children){
+		option.dataset.match = !!option.innerText.match(search_str);
+	}
+}
+function search_song_oninput(){
+	filter_song_list(this.value);
+}
+function song_list_onclick(event){
+	console.log('click', '#song_list', event.target, event);
+	if(event.target.value)
+		get('#search-song').value = event.target.value;
+	this.blur();
+}
+
+////////////////////
+
 editor_mutation_observer = new MutationObserver(editor_onchange);
 window.addEventListener('load', function(event){
 	editor_mutation_observer.observe(get('#'+editor_paper_elem_id), {childList: true});
 	get('#'+editor_paper_elem_id).addEventListener('click', editor_onclick);
 	get('#'+setting_measure_divide).addEventListener('change', replot_chord_spans);
 	window.editor = new ABCJS.Editor(abc_textarea_elem_id, editor_params);
+	append_song_list();
+	get('#song-list').addEventListener('mousedown', song_list_onclick);
+	get('#song-list').addEventListener('click', song_list_onclick);
+	get('#search-song').addEventListener('input', search_song_oninput);
 })

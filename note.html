@@ -10,6 +10,15 @@
 <body>
 
 <div class="setting">
+	<label for="search-song">搜尋</label>
+	<div id="search-song-container">
+		<input type="search" id="search-song"/>
+		<div id="song-list" tabindex="2"></div>
+	</div>
+	<button id="load-song">載入</button>
+	<button id="save-song" disabled>存檔</button>
+</div>
+<div class="setting">
 	<input type="checkbox" id="open-textarea">
 	<label for="open-textarea">原始文字</label>
 	<textarea id="abc-text"></textarea>

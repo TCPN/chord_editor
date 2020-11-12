@@ -18,6 +18,52 @@ rect.chord-span[data-selected="true"] {
 	margin: 0.5em 0;
 }
 
+/* Search Song and Song List Style */
+#search-song-container {
+	display: inline-block;
+	width: 18em;
+	position: relative;
+}
+#search-song-container #search-song {
+	width: 100%;
+}
+#song-list {
+	display: none;
+}
+:focus-within #song-list {
+	display: block;
+}
+#song-list {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #777;
+    z-index: 1;
+    min-height: 0.5em;
+    max-height: min(80vh, 20em);
+    overflow: hidden auto;
+    box-sizing: border-box;
+    width: max-content;
+	min-width: 100%;
+}
+#song-list:empty::after {
+	content: "Loading...";
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	font-style: italic;
+}
+
+#song-list option {
+    user-select: none;
+}
+#song-list option[data-match="false"] {
+    display: none;
+}
+#song-list option:hover {
+    background: #07f;
+    color: #fff;
+}
+
 /* Textarea Styles */
 #open-textarea ~ label {
 	display: block;
