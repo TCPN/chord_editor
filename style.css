@@ -39,10 +39,9 @@ rect.chord-span[data-selected="true"] {
 	display: block;
 }
 #abc-text {
-	min-width: 700px;
-	min-height: 600px;
-	width: max-content;
-	height: max-content;
+	width: 100%;
+	height: 40em;
+	box-sizing: border-box;
 }
 
 
