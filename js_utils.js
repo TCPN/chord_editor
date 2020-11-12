@@ -90,3 +90,10 @@ function gcd(a,b) {
         b %= a;
     }
 }
+async function timeout(time_length=0){
+  return new Promise((ok)=>{
+    setTimeout(()=>{
+      ok();
+    }, time_length);
+  });
+}
