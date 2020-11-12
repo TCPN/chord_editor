@@ -4,6 +4,15 @@ body {
 	margin: auto;
 }
 
+@media (max-width: 480px) {
+body {
+  width: 100vw;
+  padding: 0 0.5em;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+}
+
 @keyframes rotate{
     from{ transform: rotate(0); }
     to{ transform: rotate(360deg); }
@@ -116,9 +125,12 @@ rect.chord-span[data-selected="true"] {
 	display: inline-grid;
 	grid-auto-flow: column;
 	column-gap: 1px;
-	width: 400px;
+  width: 400px;
+  max-width: 100%;
 	text-align: center;
 }
+
+
 #measure-divide input {
 	display: none;
 }
@@ -145,7 +157,9 @@ rect.chord-span[data-selected="true"] {
 
 /* Editor Styles */
 #editor {
-	border: 1px solid #333;
+  border: 1px solid #333;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* Chord Input Styles */
@@ -159,6 +173,15 @@ rect.chord-span[data-selected="true"] {
 	padding: 0.5em;
 	margin: 1em;
 	margin-bottom: 0;
+}
+@media (max-width: 600px) {
+.chord-composer-container {
+  margin: 0 -6px;
+  margin-top: 1em;
+}
+.chord-composer-container, .chord-composer-container button {
+  font-size: 8px;
+}
 }
 #chord-composer {
 	max-width: fit-content;
@@ -177,6 +200,8 @@ rect.chord-span[data-selected="true"] {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
 }
 .chord-keyboard {
     display: grid;
