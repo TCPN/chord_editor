@@ -1,14 +1,7 @@
 body {
 	max-width: 21cm;
+	padding-top: 0.5em;
 	margin: auto;
-}
-
-#abc-text {
-	display: block;
-	min-width: 700px;
-	min-height: 600px;
-	width: max-content;
-	height: max-content;
 }
 
 rect.chord-span {
@@ -20,7 +13,40 @@ rect.chord-span[data-selected="true"] {
 	fill: #07f7;
 }
 
-/* Setting Styles */
+/* Setting Style */
+.setting {
+	margin: 0.5em 0;
+}
+
+/* Textarea Styles */
+#open-textarea ~ label {
+	display: block;
+}
+#open-textarea ~ label::after {
+	content: " ";
+	display: inline-block;
+	width: 1.5em;
+	height: 1em;
+	background: center / 80% no-repeat url(v.png);
+}
+#open-textarea:checked ~ label::after {
+	transform: scaleY(-1);
+}
+#open-textarea, #abc-text {
+	display: none;
+}
+:checked ~ #abc-text {
+	display: block;
+}
+#abc-text {
+	min-width: 700px;
+	min-height: 600px;
+	width: max-content;
+	height: max-content;
+}
+
+
+/* Meausre-Divide Styles */
 #measure-divide {
 	display: inline-grid;
 	grid-auto-flow: column;
