@@ -505,5 +505,7 @@ class ChordVoiceProxy{
     ].join('');
   }
 };
-chord_editor_text_buffer = new ChordVoiceProxy('#abc-text');
-window.chord_editor = new ChordEditor(chord_editor_text_buffer);
+function setup_chord_editor(textarea){
+  chord_editor_text_buffer = new ChordVoiceProxy(textarea);
+  window.chord_editor = new ChordEditor(chord_editor_text_buffer);
+}

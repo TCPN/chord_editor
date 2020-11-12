@@ -342,6 +342,7 @@ function display_song_data(song_data){
 	abc_text.value = song_data.abc;
 	editor.setNotDirty();
 	editor.paramChanged();
+	setup_chord_editor('#abc-text');
 }
 function search_song_oninput(){
 	filter_song_list(this.value);
@@ -377,6 +378,7 @@ window.addEventListener('load', function(event){
 	get('#'+editor_paper_elem_id).addEventListener('click', editor_onclick);
 	get('#'+setting_measure_divide).addEventListener('change', replot_chord_spans);
 	window.editor = new ABCJS.Editor(abc_textarea_elem_id, editor_params);
+	setup_chord_editor('#abc-text');
 	get('#song-list').addEventListener('mousedown', song_list_onclick);
 	get('#song-list').addEventListener('click', song_list_onclick);
 	get('#search-song').addEventListener('input', search_song_oninput);
