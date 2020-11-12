@@ -25,7 +25,8 @@ rect.chord-span[data-selected="true"] {
     position: sticky;
     bottom: 0.5em;
     background: #fff;
-    box-shadow: 0 0.5em #fff;
+    box-shadow: 0 0.5em #fff, 0 0 0.5em -1px #ccc;
+    border-radius: 0.5em 0.5em 0 0;
 }
 #chord-composer {
 	max-width: fit-content;
