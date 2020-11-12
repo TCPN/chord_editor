@@ -1,3 +1,8 @@
+body {
+	max-width: 21cm;
+	margin: auto;
+}
+
 #abc-text {
 	display: block;
 	min-width: 700px;
