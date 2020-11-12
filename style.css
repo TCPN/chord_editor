@@ -30,7 +30,7 @@ rect.chord-span[data-selected="true"] {
 #song-list {
 	display: none;
 }
-:focus-within #song-list {
+#search-song-container:focus-within #song-list {
 	display: block;
 }
 #song-list {
