@@ -16,11 +16,15 @@ rect.chord-span[data-selected="true"] {
 }
 
 /* Chord Input Styles */
-#chord-composer {
+.chord-composer-container {
     position: sticky;
     bottom: 0.5em;
     background: #fff;
     box-shadow: 0 0.5em #fff;
+}
+#chord-composer {
+	max-width: fit-content;
+	margin: auto;
 }
 #chord-composer > * {margin: 0.5em 0;}
 

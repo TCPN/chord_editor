@@ -29,17 +29,18 @@ CDEG-G4|GFED-D4|DCDC-C4|CCCC-C4|]
 <label>Editor:</label>
 <div id="editor"></div>
 
-
-<div id="chord-composer">
-	<button onclick="chord_editor.delChord(chord_span_get_selection())">Delete</button>
-	<div class="chord-keyboard root-major"
-		onclick="chord_editor.setChord(event.target.innerText, 'set', chord_span_get_selection())"></div>
-	<div class="chord-keyboard root-minor"
-		onclick="chord_editor.setChord(event.target.innerText + 'm', 'set', chord_span_get_selection())"></div>
-	<hr>
-	<div id="chord-mod" onclick="chord_editor.setChord(event.target.innerText, 'append', chord_span_get_selection())"></div>
-	<div class="chord-keyboard chord-bass"
-		onclick="chord_editor.setChord('/' + event.target.innerText, 'append', chord_span_get_selection())">
+<div class="chord-composer-container">
+	<div id="chord-composer">
+		<button onclick="chord_editor.delChord(chord_span_get_selection())">Delete</button>
+		<div class="chord-keyboard root-major"
+			onclick="chord_editor.setChord(event.target.innerText, 'set', chord_span_get_selection())"></div>
+		<div class="chord-keyboard root-minor"
+			onclick="chord_editor.setChord(event.target.innerText + 'm', 'set', chord_span_get_selection())"></div>
+		<hr>
+		<div id="chord-mod" onclick="chord_editor.setChord(event.target.innerText, 'append', chord_span_get_selection())"></div>
+		<div class="chord-keyboard chord-bass"
+			onclick="chord_editor.setChord('/' + event.target.innerText, 'append', chord_span_get_selection())">
+		</div>
 	</div>
 	<script>
 	var tone = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
