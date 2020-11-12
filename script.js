@@ -315,7 +315,7 @@ function get_note_visual_span(line, measure, note_i){
 
 //////////////
 
-async function load_song(target='list'){
+async function api_load_song(target='list'){
 	var url = new URL(song_db_address);
 	if(target == 'list')
 		var response = await fetch(song_db_address);
@@ -325,8 +325,19 @@ async function load_song(target='list'){
 	}
 	return response.json();
 }
+async function api_save_song(song_id, abc){
+	var response = await fetch(song_db_address, {
+		body: JSON.stringify({
+			id: song_id,
+			abc,
+		}),
+		method: 'POST',
+		mode: 'no-cors',
+	});
+	return response.text();
+}
 async function append_song_list(song_list){
-	song_list = song_list || await load_song('list');
+	song_list = song_list || await api_load_song('list');
 	var song_list_elem = get('#song-list');
 	song_list_elem.innerHTML = '';
 	for(let song of song_list){
@@ -365,15 +376,35 @@ async function load_song_btn_onclick(){
 	load_btn.disabled = true;
 	try{
 		var song_id = get('#search-song').value;
-		var song_data = await load_song(song_id);
+		var song_data = await api_load_song(song_id);
 		display_song_data(song_data);
 	}
 	catch(e){
-
+		console.log('載入失敗:' + e);
+		alert('載入失敗:' + e);
 	}
 	finally{
 		load_btn.dataset.status = 'ready';
 		load_btn.disabled = false;
+	}
+}
+async function save_song_btn_onclick(){
+	var save_btn = get('#save-song');
+	save_btn.dataset.status = 'saving';
+	save_btn.disabled = true;
+	try{
+		var song_id = get('#search-song').value;
+		var response = await api_save_song(song_id, get('#abc-text').value);
+		console.log('已存檔', response);
+		editor.setNotDirty();
+		enable_save_btn_if_dirty();
+	}
+	catch(e){
+		console.log('存檔失敗:' + e);
+		alert('存檔失敗:' + e);
+	}
+	finally{
+		save_btn.dataset.status = 'ready';
 	}
 }
 function search_song_oninput(){
@@ -406,6 +437,7 @@ window.addEventListener('load', function(event){
 	get('#song-list').addEventListener('click', song_list_onclick);
 	get('#search-song').addEventListener('input', search_song_oninput);
 	get('#load-song').addEventListener('click', load_song_btn_onclick);
+	get('#save-song').addEventListener('click', save_song_btn_onclick);
 	display_by_url_hash();
 	setup_chord_editor('#abc-text');
 })
