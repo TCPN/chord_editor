@@ -4,6 +4,11 @@ body {
 	margin: auto;
 }
 
+@keyframes rotate{
+    from{ transform: rotate(0); }
+    to{ transform: rotate(360deg); }
+}
+
 rect.chord-span {
 	fill: #0000;
 	stroke: #07f7;
@@ -65,6 +70,19 @@ rect.chord-span[data-selected="true"] {
 }
 
 /* Load Button and Save Button Style */
+#load-song, #save-song {
+	display: inline-flex;
+	align-items: center;
+}
+
+#load-song[data-status="loading"]::after, #save-song[data-status="saving"]::after {
+	content: " ";
+	display: block;
+	width: 1em;
+	height: 1em;
+	background: center / contain no-repeat url(loading.svg);
+	animation: linear 1s rotate infinite;
+}
 
 /* Textarea Styles */
 #open-textarea ~ label {
