@@ -499,7 +499,7 @@ class ChordVoiceProxy{
       this._parts.command,
       (this._parts.command.includes(voice_instruct) ? '' : voice_instruct + '\n'),
       'V: melody stem=solo\n',
-      this._parts.melody,
+      this._parts.melody + (this._parts.melody.slice(-1) != '\n' ? '\n' : ''),
       'V: chord\n',
       this._parts.chord,
     ].join('');
