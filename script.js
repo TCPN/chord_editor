@@ -417,10 +417,10 @@ function song_list_onclick(event){
 }
 function display_by_url_hash(){
 	var hash_params = get_url_hash_params();
-	if(hash_params.id){
+	if(hash_params.song_id){
 		var load_btn = get('#load-song');
 		var search_bar = get('#search-song');
-		search_bar.value = hash_params.id;
+		search_bar.value = hash_params.song_id;
 		load_btn.click();
 	}
 }
