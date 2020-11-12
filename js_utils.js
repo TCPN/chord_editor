@@ -97,3 +97,7 @@ async function timeout(time_length=0){
     }, time_length);
   });
 }
+function get_url_hash_params(){
+  var hash_params = new URLSearchParams(location.hash.replace('#','?'));
+  return Object.fromEntries(hash_params.entries());
+}

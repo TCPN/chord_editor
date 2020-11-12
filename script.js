@@ -345,7 +345,9 @@ function filter_song_list(search_str){
 function display_song_data(song_data){
 	var load_btn = get('#load-song');
 	var save_btn = get('#save-song');
+	var search_bar = get('#search-song');
 	var abc_text = get('#abc-text');
+	search_bar.value = song_data.id;
 	abc_text.value = song_data.abc;
 	editor.setNotDirty();
 	editor.paramChanged();
@@ -382,6 +384,15 @@ function song_list_onclick(event){
 		get('#search-song').value = event.target.value;
 	this.blur();
 }
+function display_by_url_hash(){
+	var hash_params = get_url_hash_params();
+	if(hash_params.id){
+		var load_btn = get('#load-song');
+		var search_bar = get('#search-song');
+		search_bar.value = hash_params.id;
+		load_btn.click();
+	}
+}
 
 ////////////////////
 
@@ -391,10 +402,11 @@ window.addEventListener('load', function(event){
 	get('#'+editor_paper_elem_id).addEventListener('click', editor_onclick);
 	get('#'+setting_measure_divide).addEventListener('change', replot_chord_spans);
 	window.editor = new ABCJS.Editor(abc_textarea_elem_id, editor_params);
-	setup_chord_editor('#abc-text');
 	get('#song-list').addEventListener('mousedown', song_list_onclick);
 	get('#song-list').addEventListener('click', song_list_onclick);
 	get('#search-song').addEventListener('input', search_song_oninput);
 	get('#load-song').addEventListener('click', load_song_btn_onclick);
+	display_by_url_hash();
+	setup_chord_editor('#abc-text');
 })
 append_song_list();
