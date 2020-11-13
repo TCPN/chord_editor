@@ -29,10 +29,16 @@ rect.chord-span[data-selected="true"] {
 
 /* Setting Style */
 .setting {
-	margin: 0.5em 0;
+  margin: 0.5em 0;
+  box-sizing: border-box;
 }
 
 /* Search Song and Song List Style */
+#load-save-setting input, #load-save-setting button {
+  font-size: 12px;
+  height: 2em;
+  border: 0.2px solid #777;
+}
 #search-song-container {
 	display: inline-block;
 	width: 18em;
@@ -182,7 +188,7 @@ rect.chord-span[data-selected="true"] {
 	margin: 1em;
 	margin-bottom: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 .chord-composer-container {
   margin: 0 -6px;
   margin-top: 1em;
@@ -196,13 +202,12 @@ rect.chord-span[data-selected="true"] {
 	margin: auto;
 }
 #chord-composer > * {margin: 0.5em 0;}
+
+@media (max-width: 480px) {
 #chord-composer button {
-	border-radius: 0.2em;
-	border: 1px solid #666;
+  border-width: 0.2px;
 }
-#chord-composer button {background-color: #eee;}
-#chord-composer button:hover {background-color: #ddd;}
-#chord-composer button:active {filter: brightness(1.1);}
+}
 
 #chord-mod {
     display: grid;
