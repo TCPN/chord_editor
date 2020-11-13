@@ -130,7 +130,8 @@ rect.chord-span[data-selected="true"] {
 #abc-text {
 	width: 100%;
 	height: 40em;
-	box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #000;
 }
 
 /* Meausre-Divide Styles */
