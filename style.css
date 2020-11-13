@@ -4,6 +4,13 @@ body {
 	margin: auto;
 }
 
+@media (max-width: 22cm) {
+body {
+  width: 100vw;
+  padding: 0 0.5em;
+  box-sizing: border-box;
+}
+}
 @media (max-width: 480px) {
 body {
   width: 100vw;
@@ -35,9 +42,13 @@ rect.chord-span[data-selected="true"] {
 
 /* Search Song and Song List Style */
 #load-save-setting input, #load-save-setting button {
-  font-size: 12px;
   height: 2em;
   border: 0.2px solid #777;
+}
+@media (max-width: 480px) {
+#load-save-setting input, #load-save-setting button {
+  font-size: 12px;
+}
 }
 #search-song-container {
 	display: inline-block;
@@ -198,7 +209,7 @@ rect.chord-span[data-selected="true"] {
 	margin: 1em;
 	margin-bottom: 0;
 }
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 .chord-composer-container {
   margin: 0 -6px;
   margin-top: 1em;
