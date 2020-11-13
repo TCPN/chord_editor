@@ -326,15 +326,15 @@ async function api_load_song(target='list'){
 	return response.json();
 }
 async function api_save_song(song_id, abc){
+  console.log('saveing', song_id, abc);
 	var response = await fetch(song_db_address, {
 		body: JSON.stringify({
 			id: song_id,
 			abc,
 		}),
 		method: 'POST',
-		mode: 'no-cors',
 	});
-	return response.text();
+	return await response.text();
 }
 async function append_song_list(song_list){
 	song_list = song_list || await api_load_song('list');
@@ -417,7 +417,7 @@ async function save_song_btn_onclick(){
 	save_btn.dataset.status = 'saving';
 	save_btn.disabled = true;
 	try{
-		var song_id = get('#search-song').value;
+		var song_id = get('#current-song').value;
 		var response = await api_save_song(song_id, get('#abc-text').value);
 		console.log('已存檔', response);
 		editor.setNotDirty();
