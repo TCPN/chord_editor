@@ -466,4 +466,4 @@ window.addEventListener('load', function(event){
 	display_by_url_hash();
 	setup_chord_editor('#abc-text');
 })
-append_song_list();
+append_song_list().then(search_song_update);
