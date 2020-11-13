@@ -41,6 +41,9 @@ rect.chord-span[data-selected="true"] {
 }
 
 /* Search Song and Song List Style */
+#load-save-setting {
+  height: 2em;
+}
 #load-save-setting input, #load-save-setting button {
   height: 2em;
   border: 0.2px solid #777;
