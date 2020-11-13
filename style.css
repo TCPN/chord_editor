@@ -221,3 +221,12 @@ rect.chord-span[data-selected="true"] {
 .white.key {grid-row: span 2;}
 .root-minor > *::after {content:  "m";}
 .chord-bass > *::before {content: "/";}
+
+/* General Button Styles */
+button {
+	border-radius: 0.1em;
+  border: 0.2px solid #666;
+  background-color: #eee;
+}
+button:hover {background-color: #ddd;}
+button:active {filter: brightness(1.1);}
