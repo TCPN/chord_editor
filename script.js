@@ -428,7 +428,13 @@ async function save_song_btn_onclick(){
 	}
 }
 function search_song_oninput(){
-	filter_song_list(this.value);
+  var search_bar = this;
+  if(search_bar.dataset.lock) return;
+  search_bar.dataset.lock = true;
+	setTimeout(()=>{
+    filter_song_list(this.value);
+    delete search_bar.dataset.lock;
+  },0);
 }
 function song_list_onclick(event){
 	if(event.target.value){
