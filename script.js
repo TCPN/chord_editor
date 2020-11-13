@@ -341,10 +341,18 @@ async function append_song_list(song_list){
 	var song_list_elem = get('#song-list');
 	song_list_elem.innerHTML = '';
 	for(let song of song_list){
-		var option = document.createElement('option');
+    var option = document.createElement('option');
+    Object.assign(option.dataset, song);
 		option.value = song.id;
 		option.innerText = song.id + '. ' + song.name;
 		song_list_elem.append(option);
+	}
+}
+function lookup_song_list(search_str){
+	var song_list_elem = get('#song-list');
+	for(let option of song_list_elem.children){
+    if(option.innerText.match(search_str))
+      return option;
 	}
 }
 function filter_song_list(search_str){
@@ -353,13 +361,10 @@ function filter_song_list(search_str){
 		option.dataset.match = !!option.innerText.match(search_str);
 	}
 }
-function display_song_data(song_data){
-	var load_btn = get('#load-song');
-	var save_btn = get('#save-song');
-	var search_bar = get('#search-song');
+function display_song(song_data){
 	var abc_text = get('#abc-text');
-	search_bar.value = song_data.id;
-	abc_text.value = song_data.abc;
+  abc_text.value = song_data.abc;
+  search_song_update();
 	editor.setNotDirty();
 	editor.paramChanged();
 	setup_chord_editor('#abc-text');
@@ -370,14 +375,29 @@ function enable_save_btn_if_dirty(){
 	var save_btn = get('#save-song');
 	save_btn.disabled = is_not_dirty;
 }
+function search_song_update(){
+  var song_id = get('#current-song').value;
+  var found_elem = lookup_song_list(song_id);
+	get('#search-song').value = (found_elem && found_elem.innerText) || song_id;
+}
 async function load_song_btn_onclick(){
+  await load_and_display_song();
+}
+async function load_and_display_song(song_id){
+  if(song_id == null)
+    song_id = get('#current-song').value;
+  else{
+    if(get('#current-song').value == song_id) return;
+    get('#current-song').value = song_id;
+  }
+  search_song_update();
+
 	var load_btn = get('#load-song');
 	load_btn.dataset.status = 'loading';
 	load_btn.disabled = true;
 	try{
-		var song_id = get('#search-song').value;
-		var song_data = await api_load_song(song_id);
-		display_song_data(song_data);
+    var song_data = await api_load_song(song_id);
+    display_song(song_data);
 	}
 	catch(e){
 		console.log('載入失敗:' + e);
@@ -411,17 +431,16 @@ function search_song_oninput(){
 	filter_song_list(this.value);
 }
 function song_list_onclick(event){
-	if(event.target.value)
-		get('#search-song').value = event.target.value;
+	if(event.target.value){
+    get('#current-song').value = event.target.value;
+	  load_and_display_song(event.target.value);
+  }
 	this.blur();
 }
 function display_by_url_hash(){
 	var hash_params = get_url_hash_params();
 	if(hash_params.song_id){
-		var load_btn = get('#load-song');
-		var search_bar = get('#search-song');
-		search_bar.value = hash_params.song_id;
-		load_btn.click();
+    load_and_display_song(hash_params.song_id);
 	}
 }
 
@@ -436,6 +455,7 @@ window.addEventListener('load', function(event){
 	get('#song-list').addEventListener('mousedown', song_list_onclick);
 	get('#song-list').addEventListener('click', song_list_onclick);
 	get('#search-song').addEventListener('input', search_song_oninput);
+	get('#search-song').addEventListener('blur', search_song_update);
 	get('#load-song').addEventListener('click', load_song_btn_onclick);
 	get('#save-song').addEventListener('click', save_song_btn_onclick);
 	display_by_url_hash();
