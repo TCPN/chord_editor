@@ -133,7 +133,6 @@ rect.chord-span[data-selected="true"] {
 	box-sizing: border-box;
 }
 
-
 /* Meausre-Divide Styles */
 #measure-divide {
 	display: inline-grid;
@@ -174,6 +173,16 @@ rect.chord-span[data-selected="true"] {
   border: 1px solid #333;
   box-sizing: border-box;
   width: 100%;
+}
+#editor:empty::after {
+  content: "尚未載入";
+  font-style: italic;
+  color: #777;
+  display: grid;
+  height: 4em;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
 }
 
 /* Chord Input Styles */
