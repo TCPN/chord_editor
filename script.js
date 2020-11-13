@@ -438,7 +438,6 @@ function search_song_oninput(){
 }
 function song_list_onclick(event){
 	if(event.target.value){
-    get('#current-song').value = event.target.value;
 	  load_and_display_song(event.target.value);
   }
 	this.blur();
