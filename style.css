@@ -116,7 +116,7 @@ rect.chord-span[data-selected="true"] {
   color: transparent;
   display: inline-block;
   width: 1.5em;
-	background: center / contain no-repeat url(v.png);
+	background: center / contain no-repeat url(v.svg);
 }
 #open-textarea:checked ~ label::after {
 	transform: scaleY(-1);
