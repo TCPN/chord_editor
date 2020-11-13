@@ -102,14 +102,15 @@ rect.chord-span[data-selected="true"] {
 
 /* Textarea Styles */
 #open-textarea ~ label {
-	display: block;
+	display: inline-block;
+	height: 1em;
 }
 #open-textarea ~ label::after {
-	content: " ";
-	display: inline-block;
-	width: 1.5em;
-	height: 1em;
-	background: center / 80% no-repeat url(v.png);
+  content: "字";
+  color: transparent;
+  display: inline-block;
+  width: 1.5em;
+	background: center / contain no-repeat url(v.png);
 }
 #open-textarea:checked ~ label::after {
 	transform: scaleY(-1);
