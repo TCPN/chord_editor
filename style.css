@@ -243,5 +243,6 @@ button {
   border: 0.2px solid #666;
   background-color: #eee;
 }
-button:hover {background-color: #ddd;}
+button:not(:disabled):hover {background-color: #ddd;}
 button:active {filter: brightness(1.1);}
+button:disabled {opacity: 0.5;}
