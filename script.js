@@ -380,6 +380,10 @@ function search_song_update(){
   var found_elem = lookup_song_list(song_id);
 	get('#search-song').value = (found_elem && found_elem.innerText) || song_id;
 }
+function search_song_onfocus(){
+  var search_bar = this;
+  setTimeout(()=>search_bar.select(),0);
+}
 async function load_song_btn_onclick(){
   await load_and_display_song();
 }
@@ -461,6 +465,7 @@ window.addEventListener('load', function(event){
 	get('#song-list').addEventListener('click', song_list_onclick);
 	get('#search-song').addEventListener('input', search_song_oninput);
 	get('#search-song').addEventListener('blur', search_song_update);
+	get('#search-song').addEventListener('focus', search_song_onfocus);
 	get('#load-song').addEventListener('click', load_song_btn_onclick);
 	get('#save-song').addEventListener('click', save_song_btn_onclick);
 	display_by_url_hash();
