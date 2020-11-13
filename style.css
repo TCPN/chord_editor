@@ -78,6 +78,13 @@ rect.chord-span[data-selected="true"] {
     color: #fff;
 }
 
+@media (max-width: 480px) {
+#song-list option {
+  padding: 0.5em;
+}
+}
+
+
 /* Load Button and Save Button Style */
 #load-song, #save-song {
 	display: inline-flex;
